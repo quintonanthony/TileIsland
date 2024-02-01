@@ -33,7 +33,7 @@ public class WorldGenerator {
         //call methods to build 2D array
         water();
         seedMap();
-        seedIslands(5);
+        seedIslands(15);
         searchAndExpand(10, seedColor, lightGreen, 1);
         searchAndExpand(10, seedColor, 18, 0.25);
         searchAndExpand(10, seedColor, 19, 0.25);
@@ -60,7 +60,7 @@ public class WorldGenerator {
             //randomize();
             generateWorld();
 
-            Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
+            //Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
         }
     }
 
