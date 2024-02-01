@@ -31,10 +31,15 @@ public class WorldGenerator {
         Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
         System.out.print(mapSeed.y + " " + mapSeed.x);
         //call methods to build 2D array
-
-        //seedIslands(5);
-        //searchAndExpand(10, seedColor, lightGreen, 0.25);
-        //searchAndExpand(10, seedColor, 20, 0.25);
+        water();
+        seedMap();
+        seedIslands(5);
+        searchAndExpand(10, seedColor, lightGreen, 1);
+        searchAndExpand(10, seedColor, 18, 0.25);
+        searchAndExpand(10, seedColor, 19, 0.25);
+        searchAndExpand(10, seedColor, 20, 0.25);
+        searchAndExpand(10, seedColor, 21, 0.25);
+        searchAndExpand(10, seedColor, 14, 0.25);
 
 
 
@@ -124,6 +129,27 @@ public class WorldGenerator {
             return returnString;
         }
 
+    public void water(){
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                worldIntMap[r][c] = 27;
+            }
+        }
+    }
+
+    public void seedMap() {
+        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                Vector2 tempVector = new Vector2(c,r);
+                if(tempVector.dst(mapSeed) < 10) {
+                    worldIntMap[r][c] = seedColor;
+
+                }
+            }
+        }
+    }
+
         public void randomize () {
             for (int r = 0; r < worldIntMap.length; r++) {
                 for (int c = 0; c < worldIntMap[r].length; c++) {
@@ -145,9 +171,6 @@ public class WorldGenerator {
             FileHandle file = Gdx.files.local("assets/worlds/world.txt");
             file.writeString(getWorld3DArrayToString(), false);
         }
-
-
-
 }
 
 
