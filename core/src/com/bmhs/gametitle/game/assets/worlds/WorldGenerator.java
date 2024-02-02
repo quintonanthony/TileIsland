@@ -28,21 +28,20 @@ public class WorldGenerator {
         lightGreen = 17;
         //lightGreen =
 
-        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
-        System.out.print(mapSeed.y + " " + mapSeed.x);
+
         //call methods to build 2D array
         water();
         seedMap();
-        seedIslands(15);
-        searchAndExpand(10, seedColor, lightGreen, 1);
-        searchAndExpand(10, seedColor, 18, 0.25);
-        searchAndExpand(10, seedColor, 19, 0.25);
-        searchAndExpand(10, seedColor, 20, 0.25);
-        searchAndExpand(10, seedColor, 21, 0.25);
-        searchAndExpand(10, seedColor, 14, 0.25);
+        seedIslands(5);
+        searchAndExpand(10, seedColor, lightGreen, 0.99);
+        searchAndExpand(10, seedColor, 18, 0.99);
+        searchAndExpand(10, seedColor, 19, 0.99);
+        searchAndExpand(10, seedColor, 20, 0.99);
+        searchAndExpand(10, seedColor, 21, 0.99);
 
 
-
+        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+        System.out.print(mapSeed.y + " " + mapSeed.x);
 
         worldIntMap[(int) mapSeed.y][(int) mapSeed.x] = 4;
 
