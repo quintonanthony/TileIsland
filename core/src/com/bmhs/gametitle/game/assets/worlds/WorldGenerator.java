@@ -32,12 +32,14 @@ public class WorldGenerator {
         //call methods to build 2D array
         water();
         seedMap();
-        seedIslands(5);
-        searchAndExpand(10, seedColor, lightGreen, 0.99);
-        searchAndExpand(10, seedColor, 18, 0.99);
-        searchAndExpand(10, seedColor, 19, 0.99);
-        searchAndExpand(10, seedColor, 20, 0.99);
-        searchAndExpand(10, seedColor, 21, 0.99);
+        seedIslands(100);
+        searchAndExpand(10, seedColor, lightGreen, 0.5);
+        searchAndExpand(10, seedColor, 18, 0.5);
+        searchAndExpand(10, seedColor, 19, 0.5);
+        searchAndExpand(10, seedColor, 20, 0.5);
+        searchAndExpand(10, seedColor, 21, 0.5);
+
+
 
 
         Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
@@ -67,9 +69,13 @@ public class WorldGenerator {
         for (int i = 0; i < num; i++) {
             int rSeed = MathUtils.random(worldIntMap.length - 1);
             int cSeed = MathUtils.random(worldIntMap[0].length - 1);
-            worldIntMap[rSeed][cSeed] = 14;
+            worldIntMap[rSeed][cSeed] = 24;
         }
     }
+
+//    private void greenDots(int numToFind) {
+//        if ()
+//    }
 
     private void searchAndExpand(int radius, int numToFind, int numToWrite, double probability) {
         for (int r = 0; r < worldIntMap.length; r++) {
@@ -81,7 +87,7 @@ public class WorldGenerator {
                         for (int subCol = c - radius; subCol <= c + radius; subCol++) {
 
                             if (subRow >= 0 && subCol >= 0 && subRow <= worldIntMap.length - 1 && subCol <= worldIntMap[0].length - 1 && worldIntMap[subRow][subCol] != numToFind) {
-                                if (Math.random() > probability) {
+                                if (Math.random() < probability) {
                                     worldIntMap[subRow][subCol] = numToWrite;
                                 }
                             }
