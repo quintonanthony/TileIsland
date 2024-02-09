@@ -12,6 +12,7 @@ import com.bmhs.gametitle.gfx.assets.tiles.statictiles.WorldTile;
 public class TileHandler {
 
     public static TileHandler tileHandler = null;
+    public static WorldTile getTileHandler;
 
     private int spriteSheetHeight, spriteSheetWidth, spriteOnSheetHeight, spriteOnSheetWidth;
 
