@@ -30,14 +30,13 @@ public class WorldGenerator {
 
 
         //call methods to build 2D array
-        water();
+        sea();
         seedMap();
-        seedIslands(100);
-        searchAndExpand(10, seedColor, lightGreen, 0.5);
-        searchAndExpand(10, seedColor, 18, 0.5);
-        searchAndExpand(10, seedColor, 19, 0.5);
-        searchAndExpand(10, seedColor, 20, 0.5);
-        searchAndExpand(10, seedColor, 21, 0.5);
+        searchAndExpand(10, seedColor, lightGreen, 0.99);
+        searchAndExpand(8, seedColor, 18, 0.99);
+        searchAndExpand(6, seedColor, 19, 0.85);
+        searchAndExpand(5, seedColor, 20, 0.55);
+        searchAndExpand(4, seedColor, 21, 0.25);
 
 
 
@@ -58,7 +57,7 @@ public class WorldGenerator {
 
             }
 
-            //randomize();
+            randomize();
             generateWorld();
 
             //Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
@@ -101,6 +100,39 @@ public class WorldGenerator {
 
     }
 
+    private void generateIsland(int[][] islandMap, int islandSize, int numClusters) {
+        int islandWidth = islandMap.length;
+        int islandHeight = islandMap[0].length;
+        double irregularityFactor = 0.2; // Adjust this factor to control irregularity
+
+        // Generate multiple clusters of land tiles
+        for (int cluster = 0; cluster < numClusters; cluster++) {
+            int centerX = (int) (Math.random() * islandWidth);
+            int centerY = (int) (Math.random() * islandHeight);
+            int maxDist = islandSize / 2; // Maximum distance from the center of the cluster
+
+            // Generate land tiles for the cluster
+            for (int x = 0; x < islandWidth; x++) {
+                for (int y = 0; y < islandHeight; y++) {
+                    // Calculate the distance from the cluster center
+                    double distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+
+                    // Adjust the irregularity factor based on distance
+                    double adjustedFactor = irregularityFactor * (1 - distance / maxDist);
+
+                    // Add or remove land tiles based on irregularity factor and randomness
+                    if (distance < maxDist) {
+                        double randomness = Math.random();
+
+                        if (randomness < adjustedFactor) {
+                            islandMap[x][y] = 16; // Green land tile
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void searchAndExpand(int radius) {
         for (int r = 0; r < worldIntMap.length; r++) {
             for (int c = 0; c < worldIntMap[r].length; c++) {
@@ -134,7 +166,7 @@ public class WorldGenerator {
             return returnString;
         }
 
-    public void water(){
+    public void sea(){
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
                 worldIntMap[r][c] = 27;
@@ -154,6 +186,7 @@ public class WorldGenerator {
             }
         }
     }
+
 
         public void randomize () {
             for (int r = 0; r < worldIntMap.length; r++) {
